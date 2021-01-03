@@ -13,6 +13,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastrModule} from 'ngx-toastr';
+import { UsernameDialogComponent } from './dialogs/username/username-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -25,7 +27,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    LobbyComponent
+    LobbyComponent,
+    UsernameDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ const routes: Routes = [
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,21 @@
 <div>
   <h1>{{lobbyName}}</h1>
   <h3 i18n>Users:</h3>
-  <p *ngFor="let u of users">{{u.username}}</p>
+  <div *ngFor="let u of users">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <p>
+        {{u.username}} {{u.connectionState}}
+      </p>
+      <div>
+        <div *ngIf="u.connectionState>1"><i class="material-icons">signal_cellular_connected_no_internet_0_bar</i></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button mat-raised-button
+            color="accent"
+            *ngIf="amHost"
+            i18n>Start game
+    </button>
+  </div>
 </div>

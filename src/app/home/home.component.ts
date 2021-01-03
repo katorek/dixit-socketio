@@ -27,8 +27,11 @@ export class HomeComponent implements OnInit {
     });
 
     if (isDevMode()) {
-      this.usernameForm.get('username')?.setValue('kator');
-      this.lobbyForm.get('lobbyName')?.setValue('lobby-name');
+      this.usernameForm.get('username')?.setValue('kator-' + Math.floor((Math.random() * 100) + 1));
+      this.lobbyForm.get('lobbyName')?.setValue('lobby-name-' + Math.floor((Math.random() * 100) + 1));
+    }
+    if (this.lobbyService.username) {
+      this.usernameForm.get('username')?.setValue(this.lobbyService.username);
     }
   }
 

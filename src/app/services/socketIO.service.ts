@@ -25,16 +25,21 @@ export class SocketIOService {
   }
 
   init(): void {
-    this.state = this.session.get('state') || {userUuid: uuidv4()};
+    this.state = this.session.get('state') || {id: uuidv4()};
     this.refreshState();
     console.log('SocketIOService init', this.state);
     this.socket = io(environment.socketEndpoint);
-    this.subscribeString(this.state.userUuid).subscribe((data: UserData) => this.handleMessage(data));
+    this.sendMessage(Topic.UPDATE_USER, this.user);
+    this.subscribeString(this.state.id).subscribe((data: UserData) => this.handleMessage(data));
     this.initErrorHandling();
   }
 
+  get user() {
+    return this.state;
+  }
+
   initErrorHandling() {
-    this.subscribeString('error-' + this.state.userUuid)
+    this.subscribeString('error-' + this.state.id)
       .subscribe((data) => this.handleError(data));
   }
 
@@ -94,17 +99,26 @@ export class SocketIOService {
 
   private appendUUID(data: any) {
     if (!data) {
-      return {userId: this.state.userUuid};
+      return {id: this.state.id};
     } else {
-      return _.assignIn(data, {userId: this.state.userUuid});
+      return _.assignIn(data, {id: this.state.id});
     }
   }
 
+  showStorage() {
+    this.session.showStorage();
+  }
+
+  updateUsername(username: string) {
+    this.updateState({username});
+    this.sendMessage(Topic.UPDATE_USER, {username});
+  }
 }
 
 export interface State {
   gameUuid?: string;
-  userUuid: string;
+  id: string;
+  username?: string;
   data?: any;
 }
 

@@ -3,7 +3,13 @@ export enum Topic {
   LIST_LOBBIES = 'list_lobbies',
   CREATE_LOBBY = 'create_lobby',
   JOIN_LOBBY = 'join_lobby',
-  LOBBY_INFO = 'lobby_info'
+  LOBBY_INFO = 'lobby_info',
+  UPDATE_USER = 'hello',
+
+
+  DEBUG_DATA_RESET = 'debug_data_reset',
+  DEBUG_PRINT_USERS = 'debug_print_users',
+  DEBUG_PRINT_LOBBIES = 'debug_print_lobbies',
 
   // CONNECTION = 'connection',
   // DISCONNECT = 'disconnect',
@@ -15,4 +21,5 @@ export enum Topic {
   // HOME = 'home',
   // LOBBYSETTINGS = 'lobbysettings',
   // REFRESHDATA = 'refreshdata',
+
 }

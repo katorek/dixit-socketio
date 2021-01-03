@@ -1,5 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,11 @@ import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
 export class SessionService {
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) {
+  }
+
+  showStorage() {
+    console.log('localStorage', localStorage);
+    console.log('sessionStorage', sessionStorage);
   }
 
   set(key: string, val: any): void {
