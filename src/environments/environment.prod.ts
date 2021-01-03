@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  socketEndpoint: 'http://katorek.ddns.net:3000/'
 };

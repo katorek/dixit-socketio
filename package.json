@@ -4,10 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:pl": "ng serve --configuration=pl --port=4201",
     "build": "ng build",
+    "build:pl": "ng build --configuration=pl",
+    "build:prod": "ng build --configuration=production",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "i18n": "ng extract-i18n --output-path src/locale"
   },
   "private": true,
   "dependencies": {
@@ -18,20 +22,31 @@
     "@angular/core": "~11.0.5",
     "@angular/flex-layout": "^11.0.0-beta.33",
     "@angular/forms": "~11.0.5",
+    "@angular/material": "^11.0.3",
     "@angular/platform-browser": "~11.0.5",
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
+    "@types/uuid": "^8.3.0",
     "c": "^1.1.1",
+    "lodash": "^4.17.20",
+    "ngx-toastr": "^13.2.0",
+    "ngx-webstorage-service": "^4.1.0",
+    "routing": "0.0.2",
     "rxjs": "~6.6.0",
+    "socket.io-client": "^3.0.4",
     "tslib": "^2.0.0",
+    "uuid": "^8.3.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.5",
     "@angular/cli": "~11.0.5",
     "@angular/compiler-cli": "~11.0.5",
+    "@angular/localize": "^11.0.5",
+    "@types/express": "^4.17.9",
     "@types/jasmine": "~3.6.0",
-    "@types/node": "^12.11.1",
+    "@types/lodash": "^4.14.167",
+    "@types/node": "^12.19.11",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
@@ -42,8 +57,8 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "nodemon": "^2.0.6",
     "protractor": "~7.0.0",
-    "ts-node": "~8.3.0",
+    "ts-node": "^8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.2"
+    "typescript": "^4.0.5"
   }
 }

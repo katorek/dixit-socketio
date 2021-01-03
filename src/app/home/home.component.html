@@ -1,0 +1,40 @@
+<div class="mat-background-primary">
+  <div>
+
+    <form [formGroup]="usernameForm">
+      <mat-form-field appearance="outline">
+        <mat-label i18n>Nick
+        </mat-label>
+        <input formControlName="username" matInput required>
+      </mat-form-field>
+    </form>
+    <h2 i18n>Lobbies:</h2>
+    <div>
+      <p *ngFor="let lobbyName of lobbies">
+        {{lobbyName}}
+        <button
+          routerLink="/lobby"
+          mat-raised-button color="accent"
+          (click)="joinLobby(lobbyName)"
+          [disabled]="!usernameForm.valid"
+          i18n>
+          Join
+        </button>
+      </p>
+    </div>
+
+    <h2 i18n>Lobby creator</h2>
+    <form [formGroup]="lobbyForm" (submit)="createLobby()">
+      <mat-form-field appearance="outline">
+        <mat-label> Lobby name
+        </mat-label>
+        <input matInput formControlName="lobbyName" required>
+      </mat-form-field>
+      <button
+        mat-raised-button color="accent"
+        type="submit" i18n [disabled]="!lobbyForm.valid || !usernameForm.valid">
+        Create
+      </button>
+    </form>
+  </div>
+</div>
