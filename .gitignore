@@ -45,3 +45,6 @@ testem.log
 .DS_Store
 Thumbs.db
 src/dixit-node-server/node_modules
+src/dixit-node-server/images/*
+!src/dixit-node-server/images/.gitkeep
+
