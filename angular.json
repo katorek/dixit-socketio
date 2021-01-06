@@ -159,9 +159,15 @@
         }
       },
       "i18n": {
-        "sourceLocale": "en-US",
+        "sourceLocale": {
+          "code": "en-US",
+          "baseHref": ""
+        },
         "locales": {
-          "pl": "src/locale/messages.pl.xlf"
+          "pl": {
+            "translation": "src/locale/messages.pl.xlf",
+            "baseHref": ""
+          }
         }
       }
     }
