@@ -57,7 +57,7 @@
           },
           "configurations": {
             "production": {
-              "i18nMissingTranslation": "error",
+              "i18nMissingTranslation": "warning",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
