@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="66f5c0f37c5b7fc62247fd496aba1dc7b5668280" datatype="html">
         <source>Lobbies:</source>
-        <target>Lobbies:</target>
+        <target>Poczekalnie:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/home.component.html</context>
           <context context-type="linenumber">5</context>
