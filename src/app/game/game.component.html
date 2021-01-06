@@ -1,0 +1,131 @@
+<div fxLayout="column" fxLayoutAlign="space-around none" fxFlexFill>
+  <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="25">
+    <div fxLayout="row" fxLayoutAlign="space-around stretch">
+      <div fxLayout="row" fxLayoutAlign="space-around stretch" fxLayoutGap="6px">
+        <div *ngFor="let user of game?.users">
+          <p class="user_summary" [class.selected-card]="user.selectedCard"
+             [class.story-teller]="user.id === storyTeller">{{userSummary(user)}}</p>
+        </div>
+      </div>
+      <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutAlign="space-between stretch">
+        <div fxLayout="row" fxLayoutAlign="space-between none">
+          <p i18n>Image size</p>
+          <button mat-mini-fab color="accent" (click)="changeSize(1)">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-mini-fab color="accent" (click)="changeSize(-1)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between none">
+          <p i18n>Visible cards</p>
+          <button mat-mini-fab color="accent" (click)="addCard(1)">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-mini-fab color="accent" (click)="addCard(-1)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+        <div>
+          <button
+          mat-raised-button
+          (click)="switchCards()"
+          [disabled]="voteCards?.length < 1"
+          color="accent" i18n>
+            {{voteCardsShown?'Show mine cards':'Show vote cards'}}
+          </button>
+          <button
+          mat-raised-button
+          (click)="newRound()"
+          [disabled]="newRoundButtonDisabled"
+          i18n>New round
+
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <button mat-flat-button color="primary" *ngIf="false"
+      (click)="printDebug()">
+        {{selectedIdx}} {{alreadySendCard}}
+      </button>
+      <h3 i18n>Story:</h3>
+      <ng-container *ngIf="sentence">
+        <h1> {{sentence}}</h1>
+        <ng-container *ngIf="amStoryTeller">
+
+        </ng-container>
+      </ng-container>
+
+      <form [formGroup]="sentenceForm">
+        <ng-container *ngIf="!sentence">
+          <ng-container *ngIf="amStoryTeller">
+
+            <mat-form-field
+              appearance="outline">
+              <input matInput formControlName="sentence">
+
+            </mat-form-field>
+          </ng-container>
+          <ng-container *ngIf="!amStoryTeller">
+            <mat-spinner></mat-spinner>
+          </ng-container>
+        </ng-container>
+        <button mat-flat-button color="primary"
+                [disabled]="isConfirmButtonDisabled()"
+                (click)="confirm()"
+                type="submit" i18n>Confirm
+        </button>
+        <button (click)="printDebug()" hidden>
+          click
+        </button>
+      </form>
+
+    </div>
+
+
+  </div>
+  <swiper #swiper fxFlex [config]="config">
+    <ng-container *ngIf="!voteCardsShown">
+      <div *ngFor="let card of cards; let index = index" class="swiper-slide" (click)="imageClicked(index)">
+        <div class="hide-scrollbar"
+             fxLayout="column" fxLayoutAlign="center center" fxFlexFill fxLayoutGap="5px">
+          <img src="{{card}}" alt="{{card.substr(card.lastIndexOf('/')+1)}}" style="z-index: 100"
+               [class.image-selected]="isCardSelected(index)"
+               [ngStyle]="{'max-width': width+'px', 'max-height': height+'px'}">
+          <!--        amStoryTeller and no card i sselected yet from me-->
+          <button mat-raised-button [disabled]="alreadySendCard"
+                  color="primary" i18n>
+            {{(amStoryTeller) ? 'Choose' : 'Vote'}}
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="voteCardsShown">
+      <div *ngFor="let card of voteCards; let index = index" class="swiper-slide" (click)="imageClicked(index)">
+        <div class="hide-scrollbar"
+             fxLayout="column" fxLayoutAlign="center center" fxFlexFill fxLayoutGap="5px">
+          <ng-container *ngIf="showVotes">
+            <div fxLayout="column" fxLayoutAlign="space-evenly center">
+              <p *ngFor="let u of card.usernamesThatVotedOn">{{u}}</p>
+              <p class="card-author">{{card.username}}</p>
+            </div>
+          </ng-container>
+          <img src="{{card.imgPath}}" alt="{{card.imgPath.substr(card.imgPath.lastIndexOf('/')+1)}}" style="z-index: 100"
+               [class.image-selected]="this.selectedIdx === index"
+               [ngStyle]="{'max-width': width+'px', 'max-height': height+'px'}">
+          <!--        amStoryTeller and no card i sselected yet from me-->
+          <button mat-raised-button color="primary"
+                  [disabled]="amStoryTeller"
+                  i18n>
+            Vote
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+
+  </swiper>
+</div>

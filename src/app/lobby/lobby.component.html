@@ -1,21 +1,50 @@
-<div>
-  <h1>{{lobbyName}}</h1>
-  <h3 i18n>Users:</h3>
-  <div *ngFor="let u of users">
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-      <p>
-        {{u.username}} {{u.connectionState}}
-      </p>
-      <div>
-        <div *ngIf="u.connectionState>1"><i class="material-icons">signal_cellular_connected_no_internet_0_bar</i></div>
+<div fxLayout="column" fxLayoutAlign="space-around stretch">
+
+  <h1 fxFlexAlign="center" i18n>Lobby: {{lobbyName}}</h1>
+  <a [routerLink]="" (click)="copyLink()" fxFlexAlign="center"><h2>Click to copy invitation link!</h2></a>
+
+  <div fxLayout="row" fxFill>
+    <ng-container *ngIf="amHost">
+      <div fxLayout="column" fxLayoutAlign="space-around stretch" fxFlexOffset.gt-xs="20" fxFlex="30">
+        <p class="user-list-header" i18n fxFlexAlign="center">Users:</p>
+        <div *ngFor="let u of users" fxLayout="row" fxLayoutAlign="center end" fxLayoutGap="15px" [class.disconnected]="u.connectionState>1">
+          <p class="user-list-item">{{u.username}}</p>
+          <div *ngIf="u.connectionState>1"><i class="material-icons">signal_cellular_connected_no_internet_0_bar</i></div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div>
-    <button mat-raised-button
-            color="accent"
-            *ngIf="amHost"
-            i18n>Start game
-    </button>
+      <div fxLayout="column" fxLayoutAlign="space-around stretch" fxFlex="30">
+
+        <form [formGroup]="settingsForm" (submit)="startGame()">
+          <p hidden i18n>Link to file with images links<br/>
+            Todo: upload file with links directly and load them <br/>
+            Or try our default images!
+          </p>
+          <mat-slide-toggle
+            formControlName="defaultImages" i18n>Default images
+          </mat-slide-toggle>
+          <br/>
+          <mat-form-field>
+            <mat-label i18n>Link
+            </mat-label>
+            <input formControlName="imagesLink" matInput>
+          </mat-form-field>
+          <button mat-raised-button
+                  color="accent"
+                  type="submit"
+                  [disabled]="!settingsForm.valid"
+                  i18n>Start game
+          </button>
+        </form>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!amHost">
+      <div fxLayout="column" fxLayoutAlign="space-around stretch" fxFlexFill>
+        <p class="user-list-header" i18n fxFlexAlign="center">Users:</p>
+        <div *ngFor="let u of users" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" [class.disconnected]="u.connectionState>1">
+          <p class="user-list-item" fxFlexAlign="end">{{u.username}}</p>
+          <div *ngIf="u.connectionState>1"><i class="material-icons">signal_cellular_connected_no_internet_0_bar</i></div>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>

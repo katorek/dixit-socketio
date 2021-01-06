@@ -1,40 +1,77 @@
 <div class="mat-background-primary">
-  <div>
+  <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutAlign="space-around center">
+    <div fxLayout="column" fxLayoutAlign="space-around stretch"
+         fxFlexOffset.gt-xs="20" fxFlex.gt-xs="30" fxFlex="50" fxFill>
+      <h1 fxFlexAlign="center" i18n>Lobbies:</h1>
+      <h4 *ngIf="lobbies.length ===0" fxFlexAlign="center" i18n>No lobbies</h4>
+<!--      <mat-list fxFlexFill>-->
 
-    <form [formGroup]="usernameForm">
-      <mat-form-field appearance="outline">
-        <mat-label i18n>Nick
-        </mat-label>
-        <input formControlName="username" matInput required>
-      </mat-form-field>
-    </form>
-    <h2 i18n>Lobbies:</h2>
-    <div>
-      <p *ngFor="let lobbyName of lobbies">
-        {{lobbyName}}
-        <button
-          routerLink="/lobby"
-          mat-raised-button color="accent"
-          (click)="joinLobby(lobbyName)"
-          [disabled]="!usernameForm.valid"
-          i18n>
-          Join
-        </button>
-      </p>
+<!--        <mat-list-item *ngFor="let lobbyName of lobbies;last as last"-->
+<!--                       >-->
+<!--          <p class="no-margin left">{{lobbyName}}</p>-->
+<!--          <button-->
+<!--              class="right"-->
+<!--                  routerLink="/lobby"-->
+<!--                  mat-raised-button color="accent"-->
+<!--                  (click)="joinLobby(lobbyName)"-->
+<!--                  [disabled]="!usernameForm.valid"-->
+<!--                  i18n>Join-->
+
+<!--          </button>-->
+<!--          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>-->
+<!--        </mat-list-item>-->
+
+<!--      </mat-list>-->
+      <div fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
+          <p *ngFor="let lobbyName of lobbies" class="no-margin">
+            {{lobbyName}}
+          </p>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
+          <button
+            *ngFor="let lobbyName of lobbies"
+            routerLink="/lobby"
+            mat-raised-button color="accent"
+            fxFlexAlign="end"
+            (click)="joinLobby(lobbyName)"
+            [disabled]="!usernameForm.valid"
+            i18n>Join
+
+          </button>
+        </div>
+      </div>
+
+      <h1 i18n fxFlexAlign="center">Games:</h1>
+      <h4 *ngIf="games.length ===0" fxFlexAlign="center" i18n>No games</h4>
+      <h3 *ngFor="let gameName of games">
+        {{gameName}}
+      </h3>
     </div>
-
-    <h2 i18n>Lobby creator</h2>
-    <form [formGroup]="lobbyForm" (submit)="createLobby()">
-      <mat-form-field appearance="outline">
-        <mat-label> Lobby name
-        </mat-label>
-        <input matInput formControlName="lobbyName" required>
-      </mat-form-field>
-      <button
-        mat-raised-button color="accent"
-        type="submit" i18n [disabled]="!lobbyForm.valid || !usernameForm.valid">
-        Create
-      </button>
-    </form>
+    <div fxLayout="column" fxLayoutAlign="space-around center"
+         fxFlex.gt-xs="30"
+         fxFlex="50">
+      <form [formGroup]="usernameForm" fxFlexAlign="center" fxFill>
+        <mat-form-field appearance="outline" fxFill>
+          <mat-label i18n>Username
+          </mat-label>
+          <input formControlName="username" matInput required>
+        </mat-form-field>
+      </form>
+      <h1 i18n fxFill>Lobby creator</h1>
+      <form [formGroup]="lobbyForm" (submit)="createLobby()" fxFill fxLayout="column"
+            fxLayoutAlign="space-around center">
+        <mat-form-field appearance="outline" fxFill>
+          <mat-label i18n> Lobby name
+          </mat-label>
+          <input matInput formControlName="lobbyName" required>
+        </mat-form-field>
+        <button
+          mat-raised-button color="accent"
+          type="submit" i18n [disabled]="!lobbyForm.valid || !usernameForm.valid">
+          Create
+        </button>
+      </form>
+    </div>
   </div>
 </div>

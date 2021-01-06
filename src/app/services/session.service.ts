@@ -26,4 +26,31 @@ export class SessionService {
   remove(key: string) {
     this.storage.remove(key);
   }
+
+  setCards(cards: string[]) {
+    this.storage.set('cards', cards);
+  }
+
+  addCard(card: string) {
+    const cards = this.storage.get('cards');
+    if (cards) {
+      cards.push(card);
+      this.storage.set('cards', cards);
+    } else {
+      this.storage.set('cards', []);
+      this.addCard(card);
+    }
+  }
+
+  clearCards() {
+    this.storage.remove('cards');
+  }
+
+  updatePreferences(obj: any) {
+    this.set('preferences', obj);
+  }
+
+  get preferences() {
+    return this.storage.get('preferences');
+  }
 }

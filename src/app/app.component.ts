@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, isDevMode, OnInit} from '@angular/core';
 import {SocketIOService} from './services/socketIO.service';
 import {Topic} from '../dixit-node-server/models/Topic';
+import {SessionService} from './services/session.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,13 @@ import {Topic} from '../dixit-node-server/models/Topic';
 export class AppComponent implements OnInit {
   title = 'dixit-socketio';
 
-  constructor(private socketIO: SocketIOService) {
+  constructor(private socketIO: SocketIOService,
+              private sessionService: SessionService
+  ) {
+  }
+
+  get isDevelopmentMode() {
+    return isDevMode();
   }
 
   ngOnInit() {
@@ -22,6 +29,7 @@ export class AppComponent implements OnInit {
   }
 
   showStorage() {
+    this.sessionService.addCard('asd' + Math.floor(Math.random() * 100) + 1);
     this.socketIO.showStorage();
   }
 
@@ -31,5 +39,14 @@ export class AppComponent implements OnInit {
 
   printLobbies() {
     this.socketIO.sendMessage(Topic.DEBUG_PRINT_LOBBIES);
+  }
+
+  reloadClients() {
+    this.socketIO.sendMessage(Topic.DEBUG_RELOAD);
+  }
+
+  printGames() {
+    this.socketIO.sendMessage(Topic.DEBUG_PRINT_GAMES);
+
   }
 }

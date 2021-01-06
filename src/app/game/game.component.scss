@@ -1,0 +1,32 @@
+.hide-scrollbar {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.user-summary{
+  font-size: 150%;
+}
+
+.selected-card {
+  color: #00ff00;
+}
+
+.card-author {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 130%;
+}
+
+.story-teller {
+  font-weight: bold;
+}
+
+.image-selected {
+  //width: 10px;
+  //height: 10px;
+  background-color: #fff;
+
+  box-shadow: 10px 10px 40px 20px #0ff;
+  /* in order: x offset, y offset, blur size, spread size, color */
+  /* blur size and spread size are optional (they default to 0) */
+}

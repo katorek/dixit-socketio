@@ -2,12 +2,12 @@
 <div mat-dialog-content>
   <p i18n>What's your name?</p>
   <mat-form-field>
-    <mat-label>Your name</mat-label>
+    <mat-label i18n>Your name</mat-label>
     <input matInput [(ngModel)]="data.username" required cdkFocusInitial>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="accent"
-          [mat-dialog-close]="data.username" [disabled]="data.username?.length < 3">Ok
+          [mat-dialog-close]="data.username" [disabled]="data.username?.length < 3" i18n>Ok
   </button>
 </div>

@@ -5,22 +5,24 @@ import {Lobby} from '../../dixit-node-server/models/Lobby';
 import {User} from '../../dixit-node-server/models/User';
 import {UsernameDialogComponent} from '../dialogs/username/username-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {GameRequest} from '../../dixit-node-server/models/requests/GameRequest';
+import {HomeService} from './home.service';
+import {SettingsForm} from '../../dixit-node-server/models/settingsForm';
+import { Clipboard } from '@angular/cdk/clipboard';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LobbyService {
-  lobbies: string[] = [];
   lobbyUsers: User[] = [];
   declare lobby: Lobby;
 
 
   constructor(private socket: SocketIOService,
-              public usernameDialog: MatDialog
-  ) {
-    this.socket.subscribeTopic(Topic.LIST_LOBBIES)
-      .subscribe((data: ActiveRooms) => this.lobbies = data.lobbies || []);
-    this.refreshLobbies();
+              private homeService: HomeService,
+              private clipboard: Clipboard,
+              public usernameDialog: MatDialog) {
   }
 
   subscribeLobby(lobbyId: string) {
@@ -33,28 +35,13 @@ export class LobbyService {
     });
   }
 
-  refreshLobbies() {
-    this.socket.sendMessage(Topic.GET_LOBBIES);
-  }
-
-  createLobby(lobbyName: string, username: string) {
-    this.socket.updateUsername(username);
-    this.socket.sendMessage(Topic.CREATE_LOBBY, {lobbyName, username});
-  }
-
-  joinLobby(lobbyName: string, username?: string) {
-    if (username) {
-      this.socket.updateUsername(username);
-    }
-    this.socket.sendMessage(Topic.JOIN_LOBBY, {lobbyName});
-  }
 
   getLobbyInfo(lobbyName: string) {
     this.socket.sendMessage(Topic.LOBBY_INFO, {lobbyName});
   }
 
   get amHost(): boolean {
-    return this.lobby.hostId === this.socket.state.id;
+    return this.lobby?.hostId === this.socket.state.id;
   }
 
   get username() {
@@ -63,11 +50,7 @@ export class LobbyService {
 
   ensureUsernameIsPresent(lobbyName: string) {
     const username = this.socket.state?.username;
-    console.log('username', username);
     if (username === undefined) {
-      console.log('showing modal');
-      // const dialogRef = this.usernameDialog.
-
       const dialogRef = this.usernameDialog.open(UsernameDialogComponent, {
         width: '250px',
         disableClose: true,
@@ -77,15 +60,24 @@ export class LobbyService {
 
       dialogRef.afterClosed().subscribe(result => {
         this.socket.sendMessage(Topic.UPDATE_USER, {username: result});
-        this.joinLobby(lobbyName, result);
+        this.homeService.joinLobby(lobbyName, result);
         this.getLobbyInfo(lobbyName);
       });
-
     }
+  }
+
+  joinLobby(lobbyName: string, username?: string) {
+    this.homeService.joinLobby(lobbyName, username);
+  }
+
+  startGame(settings: SettingsForm) {
+    console.log('start game', settings);
+    this.socket.sendMessage(Topic.START_GAME, new GameRequest(this.lobby.name, settings));
+  }
+
+  copyLink() {
+    this.clipboard.copy(window.location.href);
+    this.socket.toast.info('Success', 'Link copied');
   }
 }
 
-interface ActiveRooms {
-  lobbies?: string[];
-  games?: string[];
-}

@@ -8,8 +8,9 @@ import {v4 as uuidv4} from 'uuid';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
 import {ToastrService} from 'ngx-toastr';
-import {Errors} from '../../dixit-node-server/models/Errors';
+import {ErrorType} from '../../dixit-node-server/models/ErrorType';
 import {UserAction} from '../../dixit-node-server/models/UserAction';
+import {UserData} from '../../dixit-node-server/models/userData';
 
 @Injectable({
   providedIn: 'root'
@@ -38,25 +39,51 @@ export class SocketIOService {
     return this.state;
   }
 
+  get userId() {
+    return this.user.id;
+  }
+
   initErrorHandling() {
     this.subscribeString('error-' + this.state.id)
       .subscribe((data) => this.handleError(data));
   }
 
+  get toast() {
+    return this.toastr;
+  }
+
   handleError(errorData: ErrorData) {
     console.log('Error', errorData);
     switch (errorData.error) {
-      case Errors.LOBBY_ALREADY_EXISTS: {
+      case ErrorType.LOBBY_ALREADY_EXISTS: {
+        this.toastr.error(errorData.msg, errorData.title);
+        break;
+      }
+      case ErrorType.VOTE_ON_YOUSELF: {
         this.toastr.error(errorData.msg, errorData.title);
         break;
       }
     }
+
   }
 
   handleMessage(data: UserData) {
     switch (data.type) {
       case UserAction.JOIN_LOBBY: {
-        this.router.navigateByUrl('/lobby/' + data.lobbyName);
+        this.router.navigateByUrl('/lobby/' + data.name);
+        break;
+      }
+      case UserAction.JOIN_GAME: {
+        this.router.navigateByUrl('/game/' + data.name);
+        break;
+      }
+      case UserAction.RELOAD_PAGE: {
+        console.log('RELOAD_PAGE');
+        window.location.reload();
+        break;
+      }
+      case UserAction.SET_CARDS: {
+
         break;
       }
     }
@@ -123,14 +150,9 @@ export interface State {
 }
 
 export interface ErrorData {
-  error: Errors;
+  error: ErrorType;
   msg: string;
   title: string;
   data: any;
 }
 
-export interface UserData {
-  type: UserAction;
-  lobbyName?: string;
-  data?: any;
-}

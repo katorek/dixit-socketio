@@ -44,7 +44,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+src/assets/**/*.jpg
 src/dixit-node-server/node_modules
 src/dixit-node-server/images/*
-!src/dixit-node-server/images/.gitkeep
+!src/assets/images/.gitkeep
 

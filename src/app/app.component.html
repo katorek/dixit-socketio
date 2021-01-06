@@ -1,11 +1,14 @@
 <button mat-raised-button color="accent"
-routerLink="/">
+        routerLink="/" i18n>
   Home
 </button>
-<button mat-raised-button color="accent" (click)="showStorage()">Storage</button>
-<button mat-raised-button color="warn" (click)="resetBackend()">Reset BE</button>
-<button mat-raised-button color="warn" (click)="printUsers()">Users</button>
-<button mat-raised-button color="warn" (click)="printLobbies()">Lobbies</button>
+<ng-container *ngIf="isDevelopmentMode">
+  <button mat-raised-button color="accent" (click)="showStorage()">Storage</button>
+  <button mat-raised-button color="warn" (click)="resetBackend()">Reset BE</button>
+  <button mat-raised-button color="warn" (click)="printUsers()">Users</button>
+  <button mat-raised-button color="warn" (click)="printLobbies()">Lobbies</button>
+  <button mat-raised-button color="warn" (click)="printGames()">Games</button>
+  <button mat-raised-button color="warn" (click)="reloadClients()">Reload</button>
+</ng-container>
 <router-outlet></router-outlet>
-<i class="material-icons">face</i>
-<i class="material-icons">face</i>
+
