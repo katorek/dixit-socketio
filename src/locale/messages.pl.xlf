@@ -2,20 +2,252 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="pl-PL" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="c4e11a2afa07f92db1ae8ee4bf1234c5e121ce6b" datatype="html">
-        <source>Hello world !</source>
-        <target>Witaj świecie !</target>
+      <trans-unit id="4e15cd28d67134f563832a4b904f6ba4c5bbf9e7" datatype="html">
+        <source> Home</source>
+        <target> Strona główna</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">3,4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="24d50bdb6600c2020cac434cd669e8339fbe95bd" datatype="html">
-        <source>This is online service for playing online Dixit with friends</source>
-        <target>Zagraj online z przyjaciółmi w Dixit</target>
+      <trans-unit id="66f5c0f37c5b7fc62247fd496aba1dc7b5668280" datatype="html">
+        <source>Lobbies:</source>
+        <target>Lobbies:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="569c3e84f9937df0331c4c29fb8b10e43de99416" datatype="html">
+        <source>Games:</source>
+        <target>Aktywne gry:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7bbc67d3539b7da78ed194f3c54bb78630481131" datatype="html">
+        <source>Username </source>
+        <target>Nazwa użytkownika </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">56,57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fea54a4c1aef4fbefdde97001db78e343da71dab" datatype="html">
+        <source>Lobby creator</source>
+        <target>Kreator poczekalni</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3b9291c36d8c9cdaa5cbb912291597be430528b4" datatype="html">
+        <source> Lobby name </source>
+        <target> Nazwa poczekalni </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">65,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8bb8434ba5d230d12631469005afd41076b1f508" datatype="html">
+        <source> Create </source>
+        <target> Stwórz </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">72,73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f173dcf62996d118db8e5d7823a6544bea265571" datatype="html">
+        <source>No lobbies</source>
+        <target>Brak poczekalni</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b531dc0e92a276edf0c3cd193132ca18de6ef4a8" datatype="html">
+        <source>Join </source>
+        <target>Dołącz </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">39,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8e2211dca33c6f3d76fd4e31f844b03de08a618b" datatype="html">
+        <source>No games</source>
+        <target>Brak gier</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="300aad0f08e50643d5c3529b50510591e4ae5c44" datatype="html">
+        <source>Lobby: <x id="INTERPOLATION" equiv-text="{{lobbyName}}"/></source>
+        <target>Poczekalnia: <x id="INTERPOLATION" equiv-text="{{lobbyName}}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/lobby/lobby.component.html</context>
           <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bfc706fea6429f14f9c4bba0a8043390d52b88b9" datatype="html">
+        <source>Click to copy invitation link!</source>
+        <target>Kliknij, aby skopiować link z zaproszeniem!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/lobby/lobby.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="78870db886eeb5169a1d59babdb2ac0f57841edd" datatype="html">
+        <source>Users:</source>
+        <target>Użytkownicy:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/lobby/lobby.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/lobby/lobby.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fa66cd7d88d79eb763a730f43183543dd51c4cc6" datatype="html">
+        <source>Link to file with images links<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;
+            "/> Todo: upload file with links directly and load them <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;
+            "/> Or try our default images! </source>
+        <target>Link do pliku z obrazami<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;
+            "/> Do zrobienia: upload pliku z linkami i wczytanie ich <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;
+            "/> Lub skorzystaj z domyślnych obrazków! </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/lobby/lobby.component.html</context>
+          <context context-type="linenumber">18,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ca8e122c30de7eba4487c9e467e34ae9b57c5604" datatype="html">
+        <source>Default images </source>
+        <target>Domyślne obrazki </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/lobby/lobby.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="36de539da4ffe60391dbe997d6ed869015921074" datatype="html">
+        <source>Link </source>
+        <target>Link </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/lobby/lobby.component.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="83afc89dfb87cac25a65c52278421271e4274516" datatype="html">
+        <source>Start game </source>
+        <target>Startuj grę </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/lobby/lobby.component.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c2f4ff651147131166bc5d0350fbc2581095ddde" datatype="html">
+        <source>Image size</source>
+        <target>Rozmiar obrazków</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/game/game.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="285eba249a10b6a7ecf41028d208cea958f48598" datatype="html">
+        <source>Visible cards</source>
+        <target>Widoczne karty</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/game/game.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b10e1e19c28751cc581fbd66980b4de85c5719b0" datatype="html">
+        <source>
+<x id="INTERPOLATION" equiv-text="{{voteCardsShown?&apos;Show mine cards&apos;:&apos;Show vote cards&apos;}}"/>
+        </source>
+        <target>
+<x id="INTERPOLATION" equiv-text="{{voteCardsShown?&apos;Moje karty&apos;:&apos;Karty do głosowania&apos;}}"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/game/game.component.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7ad935e903218bc974066643044ae94d08f3d706" datatype="html">
+        <source>New round </source>
+        <target>Nowa runda </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/game/game.component.html</context>
+          <context context-type="linenumber">41,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="992b759288012039eec5b65390ec913772f3ae1b" datatype="html">
+        <source>Story:</source>
+        <target>Hasło:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/game/game.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fdae9cb4b6ddaa5fdd6ece337651b657175c52b1" datatype="html">
+        <source>Confirm </source>
+        <target>Potwierdź </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/game/game.component.html</context>
+          <context context-type="linenumber">78,79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e768e235bcc1a3183c9bbb96b8c9608dc8a86b83" datatype="html">
+        <source>
+<x id="INTERPOLATION" equiv-text="{{(amStoryTeller) ? &apos;Choose&apos; : &apos;Vote&apos;}}"/>
+        </source>
+        <target>
+<x id="INTERPOLATION" equiv-text="{{(amStoryTeller) ? &apos;Wybierz&apos; : &apos;Głosuj&apos;}}"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/game/game.component.html</context>
+          <context context-type="linenumber">99,101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="043a8b7c459415c014f47db2a816fd0ca21e7270" datatype="html">
+        <source> Vote </source>
+        <target> Głosuj </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/game/game.component.html</context>
+          <context context-type="linenumber">123,124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="055f1db3345092eb8a1f7908f06753afe8941af3" datatype="html">
+        <source>Hello !</source>
+        <target>Witaj !</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/username/username-dialog.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="11eaa7ec39516fce9e6a67414e5157ad722a10fe" datatype="html">
+        <source>What&apos;s your name?</source>
+        <target>Jak Cię zwą ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/username/username-dialog.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="533b2b9a76ee1335cb44c01f0bfd50d43e9400b0" datatype="html">
+        <source>Your name</source>
+        <target>Twoja nazwa</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/username/username-dialog.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3d93b017d313b582d0835b9caecffba1a9d76c09" datatype="html">
+        <source>Ok </source>
+        <target>Ok </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/dialogs/username/username-dialog.component.html</context>
+          <context context-type="linenumber">11,12</context>
         </context-group>
       </trans-unit>
     </body>
