@@ -51,6 +51,7 @@ export class Game {
   private declare storyTellerId: number;
   declare userStoryTeller: string;
   declare sentence: string;
+  declare lastUpdated: any;
 
   static newGame(lobby: Lobby, settings?: SettingsForm): Game {
     return new Game(

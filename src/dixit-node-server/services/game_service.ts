@@ -31,6 +31,18 @@ export const startGame = (gameData: GameRequest) => {
 
 };
 
+const checkGame = (game: Game) => {
+  if (hasEveryoneSendCard(game)) {
+    if (!game.voteUserCardPointsVotedon || game.voteUserCardPointsVotedon.length < 1) {
+
+      game.voteUserCardPointsVotedon = getSelectedCards(game);
+    }
+    game.usersIds.forEach(userId => {
+      sendMessage('vote-' + userId, game.voteUserCardPointsVotedon);
+    });
+  }
+};
+
 export const sendGameInfo = (request: GameRequest) => {
   const game = getGames().get(request.name);
   if (game) {
@@ -86,7 +98,6 @@ export const updateCard = (request: SentenceOrCardRequest, shuldUpdateSentence: 
   }
 };
 
-
 const hasUserNotVotedYet = (game: Game, userId: string) => {
   const u = game.voteUserCardPointsVotedon.find(_ => _[0] === userId);
   if (u) {
@@ -113,6 +124,42 @@ const userVoted = (game: Game, userId: string, votedOn: number) => {
   }
 };
 
+const sendNewRoundInfo = (game: Game) => {
+  sendGameStatus(game);
+};
+
+const hasEveryoneVoted = (game: Game): boolean => {
+  return game.voteUserCardPointsVotedon
+    .map(_ => _[3])
+    .filter(votedOn => votedOn === -1)
+    .length === 1;
+  // storyteller cannot vote
+};
+
+const hasEveryoneSendCard = (game: Game): boolean => game.users.length === game.users.filter(u => u.selectedCard !== undefined).length;
+
+const getSelectedCards = (game: Game): [string, string, number, number][] => {
+  return game.users.map(u => [u.id, u.selectedCard || '', 0, -1]);
+};
+
+const sendGameStatus = (game: Game) => {
+  sendMessage('game-' + game.name, game.dto());
+};
+
+const getUserCards = (game: Game, userId: string): string[] => {
+  const id = userIdInGame(game, userId);
+  // @ts-ignore
+  return game.users[id].cards;
+};
+
+const userIdInGame = (game: Game, userId?: string) => {
+  return game.usersIds.findIndex(id => id === userId);
+};
+
+const isUserInGame = (game: Game, userId?: string) => {
+  return userIdInGame(game, userId) !== -1;
+};
+
 export const newRound = (request: NewRoundRequest) => {
   const game = getGames().get(request.gameName);
   if (game) {
@@ -136,10 +183,6 @@ export const newRound = (request: NewRoundRequest) => {
       });
   }
 };
-
-function sendNewRoundInfo(game: Game) {
-  sendGameStatus(game);
-}
 
 export const voteOnCard = (request: SentenceOrCardRequest) => {
   const game = getGames().get(request.gameName);
@@ -168,50 +211,4 @@ export const voteOnCard = (request: SentenceOrCardRequest) => {
         release();
       });
   }
-};
-
-const hasEveryoneVoted = (game: Game): boolean => {
-  return game.voteUserCardPointsVotedon
-    .map(_ => _[3])
-    .filter(votedOn => votedOn === -1)
-    .length === 1;
-  // storyteller cannot vote
-};
-
-function checkGame(game: Game) {
-  if (hasEveryoneSendCard(game)) {
-    if (!game.voteUserCardPointsVotedon || game.voteUserCardPointsVotedon.length < 1) {
-
-      game.voteUserCardPointsVotedon = getSelectedCards(game);
-    }
-    game.usersIds.forEach(userId => {
-      sendMessage('vote-' + userId, game.voteUserCardPointsVotedon);
-    });
-  }
-}
-
-const getSelectedCards = (game: Game): [string, string, number, number][] => {
-  return game.users.map(u => [u.id, u.selectedCard || '', 0, -1]);
-};
-
-function hasEveryoneSendCard(game: Game): boolean {
-  return game.users.length === game.users.filter(u => u.selectedCard !== undefined).length;
-}
-
-const sendGameStatus = (game: Game) => {
-  sendMessage('game-' + game.name, game.dto());
-};
-
-const getUserCards = (game: Game, userId: string): string[] => {
-  const id = userIdInGame(game, userId);
-  // @ts-ignore
-  return game.users[id].cards;
-};
-
-const userIdInGame = (game: Game, userId?: string) => {
-  return game.usersIds.findIndex(id => id === userId);
-};
-
-const isUserInGame = (game: Game, userId?: string) => {
-  return userIdInGame(game, userId) !== -1;
 };

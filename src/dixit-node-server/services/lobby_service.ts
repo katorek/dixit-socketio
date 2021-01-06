@@ -7,8 +7,24 @@ import {UserData} from '../models/userData';
 import {UserAction} from '../models/UserAction';
 import {User} from '../models/User';
 import {mapUsers, updateConnectedUser} from './user_service';
-// import {mapUsers, updateConnectedUser} from './user_service';
 
+const addUserToLobby = (data: LobbyRequest) => {
+  if (!getLobbies().has(data.lobbyName)) {
+    sendErrorToUser(data.id, err('Lobby not found', 'Error', ErrorType.LOBBY_NOT_FOUND));
+  } else {
+    const user = getUser(data.id);
+    if (user) {
+      user.lobbyName = data.lobbyName;
+      updateConnectedUser(user);
+      const idx = getLobbies().get(data.lobbyName)?.usersIds.findIndex(u => u === user.id);
+      if (idx === -1) {
+        getLobbies().get(data.lobbyName)?.usersIds.push(user.id);
+      }
+    }
+  }
+};
+
+const mapLobbyUsers = (lobbyName: string): User[] => mapUsers(getLobbies().get(lobbyName)?.usersIds);
 
 export const sendActiveRooms = () => {
   const data = {
@@ -18,16 +34,22 @@ export const sendActiveRooms = () => {
   sendMessage(Topic.LIST_LOBBIES_AND_GAMES, data);
 };
 
-export function newLobby(lobbyRequest: LobbyRequest): Lobby {
-  return {
-    name: lobbyRequest.lobbyName,
-    hostId: lobbyRequest.id,
-    usersIds: []
-  };
+export const newLobby = (lobbyRequest: LobbyRequest): Lobby => ({
+  name: lobbyRequest.lobbyName,
+  hostId: lobbyRequest.id,
+  usersIds: []
+});
 
-}
+export const joinLobby = (data: LobbyRequest) => {
+  if (!getLobbies().get(data.lobbyName)) {
+    getLobbies().set(data.lobbyName, newLobby(data));
+    sendActiveRooms();
+  }
+  addUserToLobby(data);
+  sendMessage(data.id, new UserData(UserAction.JOIN_LOBBY, data.lobbyName));
+};
 
-export function createLobby(data: LobbyRequest) {
+export const createLobby = (data: LobbyRequest) => {
   if (getLobbies().has(data.lobbyName)) {
     console.log('Lobby ' + data.lobbyName + ' already exists !');
     sendErrorToUser(data.id, err('Lobby ' + data.lobbyName + ' already exists !', 'Error', ErrorType.LOBBY_ALREADY_EXISTS));
@@ -36,28 +58,18 @@ export function createLobby(data: LobbyRequest) {
     joinLobby(data);
   }
   sendActiveRooms();
-}
+};
 
-export function joinLobby(data: LobbyRequest) {
-  if (!getLobbies().get(data.lobbyName)) {
-    getLobbies().set(data.lobbyName, newLobby(data));
-    sendActiveRooms();
-  }
-  addUserToLobby(data);
-  sendMessage(data.id, new UserData(UserAction.JOIN_LOBBY, data.lobbyName));
-}
-
-
-export function updateLobbiesForUser(user: User) {
+export const updateLobbiesForUser = (user: User) => {
   getLobbies().forEach(l => {
     const idx = l.usersIds.findIndex(u => u === user.id);
     if (idx !== -1) {
       l.usersIds[idx] = user.id;
     }
   });
-}
+};
 
-export function sendLobbyInfo(lobbyName?: string) {
+export const sendLobbyInfo = (lobbyName?: string) => {
   if (lobbyName && getLobbies().get(lobbyName)) {
     const lobby = getLobbies().get(lobbyName);
     if (lobby !== undefined) {
@@ -66,10 +78,9 @@ export function sendLobbyInfo(lobbyName?: string) {
     }
     sendMessage('lobby-' + lobbyName, lobby);
   }
-}
+};
 
-
-export function removeUserFromLobby(user: User) {
+export const removeUserFromLobby = (user: User) => {
   getLobbies().forEach(l => {
     const idx = l.usersIds.findIndex(u => u === user.id);
     if (idx !== -1) {
@@ -88,25 +99,5 @@ export function removeUserFromLobby(user: User) {
     }
     sendLobbyInfo(l.name);
   });
-}
-
-function addUserToLobby(data: LobbyRequest) {
-  if (!getLobbies().has(data.lobbyName)) {
-    sendErrorToUser(data.id, err('Lobby not found', 'Error', ErrorType.LOBBY_NOT_FOUND));
-  } else {
-    const user = getUser(data.id);
-    if (user) {
-      user.lobbyName = data.lobbyName;
-      updateConnectedUser(user);
-      const idx = getLobbies().get(data.lobbyName)?.usersIds.findIndex(u => u === user.id);
-      if (idx === -1) {
-        getLobbies().get(data.lobbyName)?.usersIds.push(user.id);
-      }
-    }
-  }
-}
-
-function mapLobbyUsers(lobbyName: string): User[] {
-  return mapUsers(getLobbies().get(lobbyName)?.usersIds);
-}
+};
 
